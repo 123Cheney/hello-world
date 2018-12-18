@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no"> -->
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.scrollWidth / 1920*100 + 'px';
+    </script>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    html{
+        min-width: 1024px;
+    }
+    div{
+        width: 3rem;
+        height: 3rem;
+        font-size: 0.24rem
+        
+    }
+    .div1{
+        float: left;
+        background: #eee;
+    }
+</style>
+<body>
+    <div class="div1">111</div>
+    <script>
+        window.onresize = function(){
+            document.documentElement.style.fontSize = document.documentElement.offsetWidth / 1920*100 + 'px';
+        }
+    </script>
+</body>
+</html>

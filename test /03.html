@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+	</head>
+
+	<div id="app">
+		<div class="01" @click="click01">
+			<p>{{message}}</p>
+			<p>{{com01}}</p>
+			<p>{{message01}}</p>
+			<p>{{obj.a}}</p>
+		</div>
+		<div class="02" @click="click02">
+			<p>点击</p>
+		</div>
+	</div>
+
+	<body>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script type="text/javascript">
+			// 选项/数据
+			// 01 data: 类型：Object | Function
+			//  		限制:组件的定义只接受 function	
+			/* 02 props: 类型:{
+								数组： 简单语法
+								对象： 1）检测类型 2）检测类型 + 其他检测
+				
+							}*/ 				
+			// 03 computed 计算属性,基于它的依赖属性进行缓存,只有依赖属性发生变化,计算属性才会发生变化
+			// 04 method 注意，不应该使用箭头函数来定义 method 函数,因为箭头函数绑定了父级作用域的上下文，
+			// 				  所以 this 将不会按照期望指向 Vue 实例，
+			// 05 watch 侦听器, 被侦听的数据发生变化的时候,执行异步或开销较大的操作时，这个方式是最有用的
+			
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message:'hello Vue!',
+					message01: '',
+					obj:{
+						a:'aaa'
+					}
+				},
+				computed:{
+					com01: vm =>{
+						return vm.message + ' computed';
+					}
+				},
+				watch: {
+					// 一般监听的写法
+// 					message:function(newvalue, old){
+// 						this.message01 = newvalue+' watch'
+// 					}
+					// 立即执行监听
+// 					message: {
+// 						handler:function(newvalue, old){ this.message01 = newvalue+' watch'},
+// 						immediate: true
+// 					}
+					// 深度监听,对象下面的属性发生变化的时候,也去监听,有损性能,如下优化
+// 					obj: {
+// 						handler:function(newvalue, old){ console.log('this obj.a changed')},
+// 						deep: true
+// 					},
+					//===>优化,字符串形式,监听到具体的属性
+					'obj.a' :function(newvalue, old){
+						console.log('change',old,'to',newvalue)
+					}
+				},
+				mounted(){
+					// 监听自定义事件
+					//子组件像父组件传值
+					this.$on('test',function(param){
+						console.log('param',param)
+					})
+				},
+				methods: {
+					click01: function(){
+						this.message = 'vue hello!'
+						this.obj.a = 'click aaa'
+					},
+					click02: function(){
+						// 触发自定义事件
+						this.$emit('test','click02parasm')
+					}
+				}
+			})
+		</script>
+
+	</body>
+</html>

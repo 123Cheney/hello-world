@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<script src="//vuejs.org/js/vue.min.js"></script>
+		<!-- import stylesheet -->
+		<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+		<!-- import iView -->
+		<script src="//unpkg.com/iview/dist/iview.min.js"></script>
+		
+	</head>
+
+	<div id="app">
+		<i-form ref="former" :model="former" :rules="rules" inline>
+			<FormItem prop="user">
+				<i-input type="text" v-model="former.user" placeholder="Username">
+					<!-- <i-icon type="ios-person-outline" slot="prepend"></i-icon> -->
+				</i-input>
+			</FormItem>
+			<FormItem prop="password">
+				<i-input type="password" v-model="former.password" placeholder="Password">
+					<!-- <i-icon type="ios-lock-outline" slot="prepend"></i-icon> -->
+				</i-input>
+			</FormItem>
+			<FormItem>
+				<i-button type="primary" @click="handleSubmit('former')">Signin</i-button>
+			</FormItem>
+		</i-form>
+	</div>
+
+	<body>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data: {
+					former: {
+						user: '',
+						password: ''
+					},
+					rules: {
+						user: [
+							{ required: true, message: 'Please fill in the user name', trigger: 'blur' }
+						],
+						password: [
+							{ required: true, message: 'Please fill in the password.', trigger: 'blur' },
+							{ type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
+						]
+					}
+				},
+				methods: {
+					handleSubmit(name) {
+						this.$refs[name].validate((valid) => {
+							if (valid) {
+								this.$Message.success('Success!');
+							} else {
+								this.$Message.error('Fail!');
+							}
+						})
+					}
+				}
+			})
+		</script>
+
+	</body>
+</html>
