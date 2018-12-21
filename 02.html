@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+	</head>
+
+	<div id="app">
+		<div class="01" @click="click01" ref='ss'>{{message|filter01}}</div>
+		<div class="02" @click="click02">
+			<p v-for="item in arr01">{{item.info}}</p>
+		</div>
+		<div class="03" @click="click03" style="background: aqua;">
+			<h3 v-for="(value,key,index) in obj01">{{value}}</h3>
+		</div>
+		
+	</div>
+
+	<body>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script type="text/javascript">
+			// 01 this.$nextTick();
+			// 02 this.$set() //注意对象不能是 Vue 实例，或者 Vue 实例的根数据对象。
+			// 03 filters 筛选器,Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化
+
+
+			Vue.nextTick(function() {
+				console.log('vue.nexttick')
+			})
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message: 'Hello Vue!',
+					arr01: [
+						{info: '01',id: 1},
+						{info: '02',id: 2},
+						{info: '03',id: 3}
+					],
+					obj01: {
+						name: 'xiaoming',
+					}
+				},
+				// 过滤器,
+ 				//过滤器可以用在两个地方：双花括号插值和 v-bind 表达式 (后者从 2.1.0+ 开始支持)。
+ 				//过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符号指示：
+				filters:{
+					filter01:function(value){
+						console.log(value)
+						return value+' filter01'
+					}
+				},
+				methods: {
+					click01: function() {
+						this.message = 'update message';
+						// $el: Vue 实例使用的根 DOM 元素
+						console.log(this.$el)
+						// $refs: ref所在属性的元素
+						console.log(this.$refs.textContent); //'Hello Vue!' ,
+
+						// 将回调延迟到下次 DOM 更新循环之后执行。
+						// 在修改数据之后立即使用它，然后等待 DOM 更新。
+						// 它跟全局方法 Vue.nextTick 一样，不同的是回调的 this 自动绑定到调用它的实例上。
+						this.$nextTick(function() {
+							console.log(app.$refs.ss.textContent) //'01'
+						})
+					},
+					click02: function() {
+						// this.arr01[1] = {info:'update 02',id: 2} //不是响应式的
+						// this.arr01[1].info = 'update 022' //是响应式的
+						
+						// 由于 JavaScript 的限制，Vue 不能检测以下变动的数组：
+						//	当你利用索引直接设置一个项时，例如：vm.items[indexOfItem] = newValue
+						//	当你修改数组的长度时，例如：vm.items.length = newLength
+						this.$set(this.arr01,1,{info:'update 02',id: 2});
+						
+						
+					},
+					click03:function(){
+						// 由于 JavaScript 的限制，Vue 不能检测对象属性的添加或删除
+						// this.obj01.age = '01';  //不是响应式的
+						this.$set(this.obj01,'age','11'); //是响应式的
+						
+					}
+				}
+			})
+			// 对于已经创建的实例，Vue 不能动态添加根级别的响应式属性。
+			//但是，可以使用 Vue.set(object, key, value) 方法向嵌套对象添加响应式属性
+			// Vue.set(app.obj01,test01,'test01' )
+		</script>
+
+	</body>
+</html>
