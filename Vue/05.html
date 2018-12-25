@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+
+	<div id="app">{{AB}}</div>
+
+	<body>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script type="text/javascript">
+        // 一个属性既是计算属性也是监听属性
+			var app = new Vue({
+				el: '#app',
+				data: {
+                    a:'a',
+                    b:'b'
+				},
+                computed:{
+                    AB: function(){
+                        let p = this.a+this.b;
+                        let a=0;
+                        return a+this.a;
+                    }
+                },
+				mounted() {
+				},
+                watch:{
+                    AB:function(a,b){
+                        console.log(a,b)
+                    }
+                },
+                methods:{
+                }
+			})
+		</script>
+
+	</body>
+</html>
