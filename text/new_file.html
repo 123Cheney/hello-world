@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta charset="utf-8">
+    <title>Canvas</title>
+ </head>
+ <style type="text/css">
+	 *{margin: 0; padding: 0;}
+    body{ padding:0; }
+    canvas
+	{
+		border:dashed 2px #CCC;
+		position: absolute;
+	}
+	
+    /* #can2 {margin-left:50px;} */
+ </style>
+ <body>
+     <canvas id="can1" width="150px" height="150px"></canvas>
+ </body>
+ <script type="text/javascript">
+	 var num = Math.PI/180;
+	 var end = Math.PI;
+	 var can1 = document.getElementById('can1');
+	 var ctx = can1.getContext('2d');
+    function pageLoad(endAngle){
+		ctx.clearRect(0,0, 150,150);
+        ctx.beginPath();
+		ctx.lineCap="round"; //
+		// ctx.lineCap="butt";
+		// ctx.lineCap="square";  //线两端的样式
+		ctx.arc(70,70,60,Math.PI,endAngle,0);
+		// 线性渐变 createLinearGradient(x0,y0,x1,y1）.参数表示坐标
+		var gradient=ctx.createLinearGradient(0,0,150,0);
+		gradient.addColorStop("0","magenta");
+		gradient.addColorStop("0.5","blue");
+		gradient.addColorStop("1.0","red");
+
+		// ctx.strokeStyle = 'red'; //正常颜色填充
+		ctx.strokeStyle=gradient;  // 用渐变进行填充
+		
+        ctx.lineWidth = 10;
+        ctx.stroke();
+        ctx.closePath();
+    }
+	var timer = setInterval(()=>{
+		pageLoad(end);
+		if(end>=2*Math.PI){
+			clearInterval(timer)
+		}
+		end = end+num
+		console.log(num)
+	},10)
+	
+	
+	
+	
+	
+ </script>
+
+</html>

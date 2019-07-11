@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+</head>
+<body>
+  <script>
+    // 处理二进制文件流图片
+    function handleImg(fileName, id) {
+      return request({
+        url: '*/**/**/' + fileName,
+        method: 'get',
+        responseType: 'blob'
+      }).then((response) => { // 处理返回的文件流
+        let blob = response.data;
+        let img = document.getElementById(id);
+        img.src = URL.createObjectURL(blob);
+        window.setTimeout(function () {
+          window.URL.revokeObjectURL(blob)
+        }, 0)
+      })
+    }
+  
+  </script>
+  
+</body>
+</html>

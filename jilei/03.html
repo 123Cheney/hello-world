@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var a = {
+				name: "aa"
+			};
+			var b = {};
+			b = a;
+			b.age = 18;
+			// console.log('a===',a)
+			// console.log('b===',b);
+
+			function getObj(param) {
+				param = Object.assign({}, param);
+				param.name = 'param'
+				// console.log(param);
+			};
+			var obj = {
+				name: 'obj'
+			}
+			getObj(obj);
+			// console.log('obj===',obj)
+
+			const obj1 = {
+				a: 'aa'
+			};
+			const obj2 = Object.assign({}, obj1);
+
+			obj1.a = 'bb';
+			console.log(obj2.a)
+			
+			
+		</script>
+	</body>
+</html>

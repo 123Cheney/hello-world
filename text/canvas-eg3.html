@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			img{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="../../../VDouban/webApp/static/react/Img/submit_success_confirm.png" alt="" width="300"><br>
+		<canvas id="tutorial" width="600" height="400"></canvas>
+		<script type="text/javascript">
+			function draw() {
+				var canvas = document.getElementById('tutorial');
+				if (!canvas.getContext) return;
+				var ctx = canvas.getContext("2d");
+				var img = document.querySelector("img");
+				ctx.drawImage(img, 0, 0);
+			}
+			document.querySelector("canvas").onclick = function() {
+				draw();
+			}
+		</script>
+	</body>
+</html>
